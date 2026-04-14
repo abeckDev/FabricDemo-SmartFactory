@@ -97,4 +97,4 @@ For detailed documentation, configuration options, troubleshooting, and integrat
 
 ## License
 
-This is a demo/sample project. Use and modify as needed for your demonstrations.
+This project is licensed under the MIT License. View [LICENSE](LICENSE) for details. 
