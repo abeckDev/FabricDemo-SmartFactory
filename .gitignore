@@ -1,0 +1,30 @@
+# Build output
+bin/
+obj/
+
+# User-specific files
+*.suo
+*.user
+*.userosstate
+*.sln.docstates
+
+# Configuration files with secrets
+appsettings.json
+appsettings.*.json
+!appsettings.example.json
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Rider
+.idea/
+*.sln.iml
+
+# Test results
+TestResults/
+*.trx
+*.coverage
