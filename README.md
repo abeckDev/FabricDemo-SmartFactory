@@ -2,6 +2,8 @@
 
 An end-to-end Microsoft Fabric demo built around a smart manufacturing scenario. This repository contains everything you need to stand up a live Fabric demo — from streaming data generation to real-time dashboards, Power BI reports, and an AI agent.
 
+![Fabric Workspace Overview](img/LandingPage.png)
+
 ## Scenario
 
 A virtual aerospace factory receives customer orders and processes them through a 5-station production line. The factory streams real-time telemetry (temperature, vibration, pressure, cycle times), assembly milestones, and production KPIs into Microsoft Fabric via Eventstream. Anomalies are injected at an 8% rate to create realistic alerting and investigation scenarios.
@@ -51,6 +53,8 @@ Once data is flowing, you have a complete demo environment:
 - **Power BI Report** — OEE gauge, throughput by station, scrap rate trend, assembly funnel
 - **AI Agent** — Conversational control tower for order status, anomalies, and supply chain risk
 - **Data Activator** — Automated alerts on vibration spikes
+
+![Real-Time Dashboard with anomalies detected](img/dashboard_danger.png)
 
 ## Prerequisites
 

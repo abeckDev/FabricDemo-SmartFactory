@@ -11,6 +11,8 @@
 3. Inside the workspace → **New** → **Eventhouse** (e.g., `FactoryEventhouse`)
 4. This auto-creates a KQL Database inside it
 
+![Eventhouse System Overview](img/EventhouseLandingPage.png)
+
 ---
 
 ## Step 2: Create All Tables
@@ -187,6 +189,8 @@ MAT-005,Structural Steel S355,SUP-ECHO,Baltic Steel OÜ,Baltics,Weather,0.3,2026
 
 > In case the Event Stream should handle even category seperation, you would need to use Filter and Manage Fields transformations here for each category. It means better visuals but requires a little more time to setup. 
 
+![Eventstream with Custom App source flowing to Eventhouse](img/eventstream.png)
+
 ---
 
 ## Step 8: Build, Configure & Run the C# Simulator
@@ -215,6 +219,8 @@ ProductionKPIs | take 5
 // Check supply risk seed data
 SupplyRisk | take 5
 ```
+
+![KQL Database with all tables populated](img/EventhouseDatabases.png)
 
 ---
 
@@ -284,6 +290,14 @@ MachineTelemetry
 | summarize AnomalyCount = count()
 ```
 
+Your completed dashboard should look similar to this:
+
+![Real-Time Dashboard — all stations normal](img/dashboard_green.png)
+
+When anomalies are detected, the dashboard updates with warnings:
+
+![Real-Time Dashboard — anomalies detected](img/dashboard_issues.png)
+
 ---
 
 ## Step 11: Power BI Report
@@ -292,6 +306,8 @@ MachineTelemetry
 2. **Get Data** → **Kusto (Azure Data Explorer)** → enter your Eventhouse URI (Can be obtained from the Eventhouse overview)
 
 3. Build visuals:
+
+![Power BI Report with OEE gauge, cycle time, scrap rate, and event breakdown](img/PowerBI-Report.png)
 
 ### 1. OEE Gauge
 
@@ -411,6 +427,8 @@ Always be specific with numbers and timestamps.
    - *"What's our current OEE?"*
    - *"Are any active orders exposed to supply chain risk?"*
 
+![Agent Builder with instructions and anomaly response](img/DataAgent.png)
+
 ---
 
 ## Step 13 (Optional): Data Activator Alert
@@ -421,6 +439,10 @@ Always be specific with numbers and timestamps.
 4. **Condition:** `Vibration > 1.2 for longer than 60 seconds`
 5. **Action:** Send email or Teams message
 6. Save & activate
+
+![Data Activator event source configuration](img/DataActivator-Event.png)
+
+![Data Activator rule history with activation details](img/DataActivator.png)
 
 ---
 
