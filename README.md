@@ -1,100 +1,78 @@
-# Fabric Demo Seeder
+# Fabric Demo — Smart Factory
 
-A realistic data generator for Microsoft Fabric demonstrations that simulates a smart manufacturing environment with streaming telemetry data.
+An end-to-end Microsoft Fabric demo built around a smart manufacturing scenario. This repository contains everything you need to stand up a live Fabric demo — from streaming data generation to real-time dashboards, Power BI reports, and an AI agent.
 
-## What is This?
+## Scenario
 
-This repository contains a **Smart Factory Simulator** that generates realistic IoT and manufacturing data for Microsoft Fabric demos. It simulates orders flowing through a virtual factory production line, complete with machine telemetry, assembly events, and production KPIs.
-
-## Project Structure
+A virtual aerospace factory receives customer orders and processes them through a 5-station production line. The factory streams real-time telemetry (temperature, vibration, pressure, cycle times), assembly milestones, and production KPIs into Microsoft Fabric via Eventstream. Anomalies are injected at an 8% rate to create realistic alerting and investigation scenarios.
 
 ```
-fabric-demo-seeder/
-├── SmartFactorySimulator/        # Main simulator application
-│   ├── Program.cs                # Core simulation logic
-│   ├── appsettings.example.json  # Configuration template
-│   ├── appsettings.json          # Your local config (gitignored)
-│   ├── run.sh                    # Convenience script for running
-│   └── README.md                 # Detailed documentation
-└── .gitignore                    # Excludes secrets and build artifacts
+SmartFactorySimulator (C#)
+         ↓
+    Eventstream (Custom App Source)
+         ↓
+    ├─→ Eventhouse / KQL Database (Real-Time Analytics)
+    ├─→ Real-Time Dashboard
+    ├─→ Power BI Report
+    ├─→ AI Agent (Fabric Agent Builder)
+    └─→ Data Activator (Alerting)
 ```
+
+## What's in This Repo
+
+| Path | Description |
+|------|-------------|
+| [SmartFactorySimulator/](SmartFactorySimulator/) | C# data seeder that generates streaming factory telemetry and sends it to Fabric Eventstream |
+| [HowToSetup.md](HowToSetup.md) | Step-by-step guide to provision the full Fabric environment (Eventhouse, Eventstream, dashboards, Power BI, Agent) |
 
 ## Quick Start
 
-### 1. Clone and Navigate
+### 1. Set up the Fabric environment
+
+Follow the [How To Setup Guide](HowToSetup.md) to create your workspace, Eventhouse, tables, Eventstream, dashboards, and agent. The guide covers 13 steps from workspace creation through Data Activator alerts.
+
+### 2. Configure and run the simulator
 
 ```bash
-git clone <your-repo-url>
-cd fabric-demo-seeder/SmartFactorySimulator
-```
-
-### 2. Configure Event Hub
-
-```bash
-# Copy the example configuration
+cd SmartFactorySimulator
 cp appsettings.example.json appsettings.json
-
-# Edit with your Fabric Eventstream credentials
-nano appsettings.json
-```
-
-### 3. Build and Run
-
-```bash
-# Build the project
+# Edit appsettings.json with your Eventstream connection string and entity path
 dotnet build
-
-# Run with 1 session (default)
-dotnet run
-
-# Or run with multiple parallel sessions
-dotnet run -- 5
+dotnet run -- 5   # Run 5 parallel factory sessions
 ```
 
-## What Gets Generated
+See the [Smart Factory Simulator README](SmartFactorySimulator/README.md) for full usage, configuration options, and event schemas.
 
-The simulator produces four types of events streamed to your Fabric Eventstream:
+### 3. Present the demo
 
-- **Order Events** - Order creation and completion
-- **Machine Telemetry** - Temperature, vibration, cycle time, pressure (every 5s)
-- **Assembly Events** - Production milestones and anomaly alerts (every 5s)
-- **Production KPIs** - OEE, throughput, scrap rate, uptime (every 15s)
+Once data is flowing, you have a complete demo environment:
 
-## Use Cases
+- **Real-Time Dashboard** — Live machine status, anomaly timeline, OEE trend
+- **Power BI Report** — OEE gauge, throughput by station, scrap rate trend, assembly funnel
+- **AI Agent** — Conversational control tower for order status, anomalies, and supply chain risk
+- **Data Activator** — Automated alerts on vibration spikes
 
-Perfect for demonstrating:
-- Real-time streaming analytics in Fabric
-- KQL Database and real-time dashboards
-- Lakehouse data ingestion and transformation
-- Predictive maintenance ML models
-- Power BI real-time reports
-- Alerting and automation with Reflex
+## Prerequisites
 
-## Configuration
+- **.NET 9.0 SDK** or later
+- **Microsoft Fabric** workspace (with capacity or trial)
+- A Fabric **Eventstream** with Custom App source configured
 
-All secrets are stored in `appsettings.json` (not tracked in git). See `appsettings.example.json` for the template.
+## Demo Scope
 
-Required configuration:
-- Event Hub connection string from Fabric Eventstream
-- Event Hub name / entity path
-- Simulation parameters (duration, frequency, anomaly rate)
-
-## Documentation
-
-For detailed documentation, configuration options, troubleshooting, and integration guides, see:
-
-**[📖 SmartFactorySimulator/README.md](SmartFactorySimulator/README.md)**
-
-## Requirements
-
-- .NET 9.0 SDK or later
-- Microsoft Fabric workspace with Eventstream
-- Azure Event Hubs connection credentials
+| Fabric Capability | How It's Used |
+|---|---|
+| **Eventstream** | Ingests streaming events from the simulator via Event Hubs protocol |
+| **Eventhouse (KQL Database)** | Stores and routes events using update policies; powers real-time queries |
+| **Real-Time Dashboard** | Live tiles for machine status, anomalies, OEE, supply risk, event counts |
+| **Power BI** | Performance management report with OEE gauge, cycle time analysis, scrap trends |
+| **Agent Builder** | AI-powered control tower assistant that queries KQL to answer questions about orders, anomalies, and risk |
+| **Data Activator** | Automated alerting on anomaly conditions (vibration > threshold) |
 
 ## Security
 
-⚠️ **Important**: Never commit `appsettings.json` to version control. It contains your Event Hub connection strings and should remain local only. The `.gitignore` is configured to exclude it automatically.
+> **Important**: Never commit `appsettings.json` to version control. It contains your Event Hub connection strings and should remain local only. The `.gitignore` is configured to exclude it automatically.
 
 ## License
 
-This project is licensed under the MIT License. View [LICENSE](LICENSE) for details. 
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

@@ -1,10 +1,12 @@
-# Fabric Demo Seeder - Smart Factory Simulator
+# Smart Factory Simulator
 
-A realistic data generator for Microsoft Fabric demonstrations that simulates a complete smart manufacturing environment. This seeder generates streaming telemetry data for orders flowing through a virtual factory production line.
+A realistic data generator for Microsoft Fabric demonstrations that simulates a complete smart manufacturing environment. It continuously generates streaming telemetry data for orders flowing through a virtual factory production line and sends it to a Fabric Eventstream.
 
 ## Overview
 
-This repository is part of a larger Microsoft Fabric demo ecosystem. It serves as a **data seeder** that continuously generates realistic manufacturing data and sends it to a Fabric Eventstream, enabling downstream analytics, real-time monitoring, and AI/ML scenarios.
+The Smart Factory Simulator is part of the [Fabric Demo](../README.md) ecosystem. It serves as a **data seeder** that generates realistic manufacturing data and streams it to a Fabric Eventstream, enabling downstream analytics, real-time monitoring, and AI/ML scenarios.
+
+> For environment preparation and Fabric workspace setup, see the [How To Setup Guide](../HowToSetup.md).
 
 The simulator models a typical smart factory scenario where:
 1. **Customers place orders** for aerospace manufacturing components
@@ -103,8 +105,7 @@ The seeder generates three types of events streamed to Fabric Eventstream:
 
 ## Usage
 
-### Method 1: Using the run script (Recommended)
-
+### Method 1: Using the run script
 ```bash
 ./run.sh 5  # Run 5 parallel sessions
 ./run.sh    # Run 1 session (default)
@@ -236,6 +237,10 @@ These can be customized in the arrays at the top of `Program.cs`.
   - `Azure.Messaging.EventHubs`
   - `Microsoft.Extensions.Configuration`
   - `Microsoft.Extensions.Configuration.Json`
+
+## Security
+
+> **Important**: Never commit `appsettings.json` to version control. It contains your Event Hub connection strings and should remain local only. The `.gitignore` is configured to exclude it automatically.
 
 ## Building and Running
 
@@ -425,11 +430,3 @@ dotnet build
 3. **Use Anomalies**: The 8% anomaly rate creates interesting patterns for demos
 4. **Monitor Performance**: Watch Event Hub metrics to ensure you're not hitting throttling limits
 5. **Prepare Visuals**: Have Power BI dashboards ready to show real-time data flowing in
-
-## License
-
-This is a demo/sample project. Modify and use as needed for your Fabric demonstrations.
-
-## Contributing
-
-This is a demonstration project. Feel free to fork and adapt for your specific use cases.
