@@ -255,7 +255,7 @@ cp appsettings.example.json appsettings.json
 
 # Edit appsettings.json with your Event Hub credentials
 # (Use your favorite editor: nano, vim, VS Code, etc.)
-nano appsettings.json
+vi appsettings.json
 
 # Restore dependencies and build
 dotnet build
